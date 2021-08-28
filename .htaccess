@@ -1,0 +1,2 @@
+RewriteEngine on
+RewriteRule ^((?!index\.html|static|api|asset-manifest|phpmyadmin).+)$ /index.html [L]

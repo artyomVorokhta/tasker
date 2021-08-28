@@ -1,0 +1,70 @@
+CREATE DATABASE Tasker;
+USE Tasker;
+
+CREATE TABLE users(
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(100) NOT NULL,
+email VARCHAR(100) NOT NULL,
+password VARCHAR(100) NOT NULL  
+);
+
+CREATE TABLE rooms(
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+title VARCHAR(100) NOT NULL,
+deleted INT(6) NOT NULL DEFAULT 0,
+creator_id INT(6) NOT NULL
+);
+
+CREATE TABLE boards(
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+title VARCHAR(100) NOT NULL,
+room_id INT(6) NOT NULL 
+);
+
+CREATE TABLE tasks(
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+title VARCHAR(100) NOT NULL,
+description VARCHAR(500) NOT NULL,
+stage INT(1) NOT NULL,
+executor_id INT(6),
+board_id INT(6) NOT NULL
+);
+
+CREATE TABLE accounting(
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+user_id INT(6) NOT NULL,
+room_id INT(6) NOT NULL
+);
+
+ALTER TABLE rooms MODIFY COLUMN creator_id INT(6) UNSIGNED;
+ALTER TABLE rooms ADD FOREIGN KEY (creator_id) REFERENCES users(id);
+
+ALTER TABLE boards MODIFY COLUMN room_id INT(6) UNSIGNED;
+ALTER TABLE boards ADD FOREIGN KEY (room_id) REFERENCES rooms(id);
+
+ALTER TABLE tasks MODIFY COLUMN executor_id INT(6) UNSIGNED;
+ALTER TABLE tasks ADD FOREIGN KEY (executor_id) REFERENCES users(id);
+
+ALTER TABLE tasks MODIFY COLUMN board_id INT(6) UNSIGNED;
+ALTER TABLE tasks ADD FOREIGN KEY (board_id) REFERENCES boards(id);
+
+ALTER TABLE accounting MODIFY COLUMN user_id INT(6) UNSIGNED;
+ALTER TABLE accounting ADD FOREIGN KEY (user_id) REFERENCES users(id);
+
+ALTER TABLE accounting MODIFY COLUMN room_id INT(6) UNSIGNED;
+ALTER TABLE accounting ADD FOREIGN KEY (room_id) REFERENCES rooms(id);
+
+INSERT INTO `users` (`name`, `email`, `password`) 
+VALUES ('admin', 'admin@tasker.com', '21232f297a57a5a743894a0e4a801fc3');
+
+INSERT INTO `rooms` (`title`, `creator_id`) VALUES ('Комната 1', '1');
+INSERT INTO `rooms` (`title`, `creator_id`) VALUES ('Комната 2', '1');
+
+INSERT INTO `boards` (`title`, `room_id`) VALUES ('Доска 1', '1');
+INSERT INTO `boards` (`title`, `room_id`) VALUES ('Доска 2', '1');
+INSERT INTO `boards` (`title`, `room_id`) VALUES ('Доска 3', '1');
+
+INSERT INTO `tasks` (`title`, `description`, `stage`, `executor_id`, `board_id`) 
+VALUES ('Задача 1', 'Описание задачи 1. Описание может быть довольно длинным, вплоть до 500 символов.', '0', '1', '1');
+INSERT INTO `tasks` (`title`, `description`, `stage`, `executor_id`, `board_id`) 
+VALUES ('Задача 2', 'Описание задачи 2. Описание может быть довольно длинным, вплоть до 500 символов.', '1', '1', '1');
