@@ -14,13 +14,14 @@ $qry = "SELECT users.id, users.name, GROUP_CONCAT(accounting.room_id SEPARATOR '
         AND users.id != '" .$user_id. "'
         GROUP BY users.id";
 
-$users_query = mysqli_query($connect, $qry);
-
-$users = [];
-while ($user = mysqli_fetch_object($users_query)) {
-    array_push($users, $user);
-}
-
-http_response_code(200);
-//echo(json_encode($users));
 echo(json_encode($qry));
+
+// $users_query = mysqli_query($connect, $qry);
+
+// $users = [];
+// while ($user = mysqli_fetch_object($users_query)) {
+//     array_push($users, $user);
+// }
+
+// http_response_code(200);
+// echo(json_encode($users));
