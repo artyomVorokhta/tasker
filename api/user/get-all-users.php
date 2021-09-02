@@ -16,7 +16,7 @@ $qry = "SELECT users.id, users.name, GROUP_CONCAT(accounting.room_id SEPARATOR '
 
 echo(json_encode($qry));
 
-// $users_query = mysqli_query($connect, $qry);
+$users_query = mysqli_query($connect, $qry);
 
 // $users = [];
 // while ($user = mysqli_fetch_object($users_query)) {
