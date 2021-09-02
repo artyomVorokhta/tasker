@@ -22,4 +22,5 @@ while ($user = mysqli_fetch_object($users_query)) {
 }
 
 http_response_code(200);
-echo(json_encode($users));
+//echo(json_encode($users));
+echo(json_encode($qry));
