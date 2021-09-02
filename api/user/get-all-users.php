@@ -3,7 +3,8 @@
 session_start();
 include_once "../common/connect.php";
 header("Content-type: application/json");
-$user_id = $_SESSION['userId'];
+//$user_id = $_SESSION['userId'];
+$user_id = 1;
 
 $qry = "SELECT users.id, users.name, GROUP_CONCAT(accounting.room_id SEPARATOR ',') as roomIds
         FROM users
