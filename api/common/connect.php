@@ -10,6 +10,7 @@ $query_builder = TRUE;
 
 // Connect to DB
 $connect = mysqli_connect($cleardb_server, $cleardb_username, $cleardb_password, $cleardb_db);
+$connect->set_charset('utf8');
 
 if ($connect->connect_error) {
     die("Connection failed: " . $connect->connect_error);
